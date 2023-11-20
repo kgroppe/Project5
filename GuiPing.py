@@ -1,3 +1,5 @@
+import email.headerregistry
+
 import wx
 import sys
 import ping3
@@ -24,4 +26,25 @@ def pingScan(event):
 
     for i in range(hostStart.GetVaule(), (hostEnd.GetValue()+1)):
         ipRange.append(baseIP+str(i))
-    
+
+    for ipAddress in ipRange:
+
+        try:
+            mainWin.StatusBar.SetStatusText("Pinging IP: "+ ipAddress)
+            delay = ping3.ping(ipAddress, timeout=2)
+            results.AppendText(ipAddress+"\t")
+
+            if delay != None:
+                results.AppendText("Response Success")
+                results.AppendText("Resonse Time:" +str(delay)+"Seconds")
+                results.AppendText("\n")
+            else:
+                results.AppendText("Response Timeout")
+                results.AppendText("\n")
+        except OSError as e:
+            results.AppendText(ipAddress)
+            results.AppendText("Response Failed: ")
+            results.AppendText(e.message)
+            results.AppendTest("\n")
+
+        
