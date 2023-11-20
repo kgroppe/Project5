@@ -84,4 +84,17 @@ ipcRange.SetValue(0)
 
 ipLabel = wx.StaticText(panelAction, label="IP Base: ")
 
+hostStart = wx.SpinCtrl(panelAction, -1, '')
+hostStart.SetRange(0,255)
+hostStart.SetValue(1)
 
+hostEnd = wx.SpinCtrl(panelAction, -1, '')
+hostEnd.SetRange(0,255)
+hostEnd.SetValue(10)
+
+hostStartLabel = wx.StaticText(panelAction, label="Host Start: ")
+hostEndLabel = wx.StaticText(panelAction, label="Host End: ")
+
+actionBox = wx.BoxSizer()
+actionBox.Add(scanButton, proportion=1, flag=wx.LEFT, border=5)
+actionBox.Add(exitButton, proportion=0, flag=wx.LEFT, border=5)
