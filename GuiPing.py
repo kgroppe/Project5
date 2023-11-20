@@ -47,4 +47,41 @@ def pingScan(event):
             results.AppendText(e.message)
             results.AppendTest("\n")
 
-        
+    utcEnd = gmtime()
+    utc = strftime("%a, %d %b %Y %X + 0000", utcEnd)
+    results.AppendText("\n\nPing Sweep Ended: " + utc + "\n\n")
+
+    mainWin.StatusBar.SetStatusText("")
+
+    return
+
+def programExit(event):
+    mainWin.Close()
+
+app = wx.App()
+mainWin = wx.Frame(None, title="Simple Ping (IMCP) Sweeper 1.0", size=(1000,600))
+panelAction = wx.Panel(mainWin)
+
+scanButton = wx.Button(panelAction, label="Scan")
+scanButton.Bind(wx.EVT_BUTTON, pingScan())
+
+exitButton = wx.Button(panelAction, label="Exit")
+exitButton.Bind(wx.EVT_BUTTON, programExit())
+
+Results = wx.TextCtrl(panelAction, style=wx.TE_MULTILINE | wx.HSCROLL)
+
+ipaRange = wx.SpinCtrl(panelAction, -1,'')
+ipaRange.SetRange(0,255)
+ipaRange.SetValue(127)
+
+ipbRange = wx.SpinCtrl(panelAction, -1,'')
+ipbRange.SetRange(0,255)
+ipbRange.SetValue(0)
+
+ipcRange = wx.SpinCtrl(panelAction, -1,'')
+ipcRange.SetRange(0,255)
+ipcRange.SetValue(0)
+
+ipLabel = wx.StaticText(panelAction, label="IP Base: ")
+
+
