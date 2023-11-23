@@ -19,7 +19,7 @@ def pingScan(event):
 
     utcStart = gmtime()
     utc = strftime("%a, %d %b %Y %X + 0000", utcStart)
-    results.AppendText("\n\nPing Sweep Started: "+utc+"\n\n")
+    Results.AppendText("\n\nPing Sweep Started: "+utc+"\n\n")
     baseIP = str(ipaRange.GetValue())+"."+str(ipbRange.GetVaule())+"."+str(ipcRange.GetVaule())+"."
 
     ipRange = []
@@ -32,24 +32,24 @@ def pingScan(event):
         try:
             mainWin.StatusBar.SetStatusText("Pinging IP: "+ ipAddress)
             delay = ping3.ping(ipAddress, timeout=2)
-            results.AppendText(ipAddress+"\t")
+            Results.AppendText(ipAddress+"\t")
 
             if delay != None:
-                results.AppendText("Response Success")
-                results.AppendText("Resonse Time:" +str(delay)+"Seconds")
-                results.AppendText("\n")
+                Results.AppendText("Response Success")
+                Results.AppendText("Resonse Time:" +str(delay)+"Seconds")
+                Results.AppendText("\n")
             else:
-                results.AppendText("Response Timeout")
-                results.AppendText("\n")
+                Results.AppendText("Response Timeout")
+                Results.AppendText("\n")
         except OSError as e:
-            results.AppendText(ipAddress)
-            results.AppendText("Response Failed: ")
-            results.AppendText(e.message)
-            results.AppendTest("\n")
+            Results.AppendText(ipAddress)
+            Results.AppendText("Response Failed: ")
+            Results.AppendText(e.message)
+            Results.AppendTest("\n")
 
     utcEnd = gmtime()
     utc = strftime("%a, %d %b %Y %X + 0000", utcEnd)
-    results.AppendText("\n\nPing Sweep Ended: " + utc + "\n\n")
+    Results.AppendText("\n\nPing Sweep Ended: " + utc + "\n\n")
 
     mainWin.StatusBar.SetStatusText("")
 
@@ -92,9 +92,28 @@ hostEnd = wx.SpinCtrl(panelAction, -1, '')
 hostEnd.SetRange(0,255)
 hostEnd.SetValue(10)
 
-hostStartLabel = wx.StaticText(panelAction, label="Host Start: ")
-hostEndLabel = wx.StaticText(panelAction, label="Host End: ")
+HostStartLabel = wx.StaticText(panelAction, label="Host Start: ")
+HostEndLabel = wx.StaticText(panelAction, label="Host End: ")
 
 actionBox = wx.BoxSizer()
 actionBox.Add(scanButton, proportion=1, flag=wx.LEFT, border=5)
 actionBox.Add(exitButton, proportion=0, flag=wx.LEFT, border=5)
+
+actionBox.Add(ipLabel, proportion=0, flag=wx.LEFT, border=5)
+
+actionBox.Add(ipaRange, proportion=0, flag=wx.LEFT, bordre=5)
+actionBox.Add(ipbRange, proportion=0, flag=wx.LEFT, bordre=5)
+actionBox.Add(ipcRange, proportion=0, flag=wx.LEFT, bordre=5)
+
+actionBox.Add(HostStartLabel, proportion=0, flag=wx.LEFT|wx.CENTER, border=5)
+actionBox.Add(hostStart, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(HostEndLabel, proportion=0, flag=wx.LEFT|wx.CENTER, border=5)
+actionBox.Add(hostEnd, proportion=0, flag=wx.LEFT, border=5)
+
+vertBox = wx.BoxSizer(wx.VERTICAL)
+vertBox.Add(actionBox, proportion=0, flag=wx.EXPAND|wx.ALL, border=5)
+vertBox.Add(Results,proportion=1, flag=wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, border=5)
+
+mainWin.CreateStatusBar()
+
+panelAction.SetSizer(vertBox)
