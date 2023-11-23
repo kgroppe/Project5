@@ -20,7 +20,7 @@ def pingScan(event):
     utcStart = gmtime()
     utc = strftime("%a, %d %b %Y %X + 0000", utcStart)
     results.AppendText("\n\nPing Sweep Started: "+utc+"\n\n")
-    baseIP = str(ipaRange.GetValue())+"."+str(ipbRange.GetVaule())"."+str(ipcRange.GetVaule())+"."
+    baseIP = str(ipaRange.GetValue())+"."+str(ipbRange.GetVaule())+"."+str(ipcRange.GetVaule())+"."
 
     ipRange = []
 
