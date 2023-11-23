@@ -63,10 +63,10 @@ mainWin = wx.Frame(None, title="Simple Ping (IMCP) Sweeper 1.0", size=(1000,600)
 panelAction = wx.Panel(mainWin)
 
 scanButton = wx.Button(panelAction, label="Scan")
-scanButton.Bind(wx.EVT_BUTTON, pingScan())
+scanButton.Bind(wx.EVT_BUTTON, pingScan)
 
 exitButton = wx.Button(panelAction, label="Exit")
-exitButton.Bind(wx.EVT_BUTTON, programExit())
+exitButton.Bind(wx.EVT_BUTTON, programExit)
 
 Results = wx.TextCtrl(panelAction, style=wx.TE_MULTILINE | wx.HSCROLL)
 
