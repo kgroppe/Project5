@@ -1,5 +1,4 @@
 import email.headerregistry
-
 import wx
 import sys
 import ping3
@@ -60,6 +59,7 @@ def programExit(event):
 
 app = wx.App()
 mainWin = wx.Frame(None, title="Simple Ping (IMCP) Sweeper 1.0", size=(1000,600))
+
 panelAction = wx.Panel(mainWin)
 
 scanButton = wx.Button(panelAction, label="Scan")
@@ -96,23 +96,23 @@ HostStartLabel = wx.StaticText(panelAction, label="Host Start: ")
 HostEndLabel = wx.StaticText(panelAction, label="Host End: ")
 
 actionBox = wx.BoxSizer()
-actionBox.Add(scanButton, proportion=1, flag=wx.LEFT, border=5)
-actionBox.Add(exitButton, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(scanButton, 1,wx.LEFT, 5)
+actionBox.Add(exitButton, 0, wx.LEFT, 5)
 
-actionBox.Add(ipLabel, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(ipLabel, 0, wx.LEFT, 5)
 
-actionBox.Add(ipaRange, proportion=0, flag=wx.LEFT, bordre=5)
-actionBox.Add(ipbRange, proportion=0, flag=wx.LEFT, bordre=5)
-actionBox.Add(ipcRange, proportion=0, flag=wx.LEFT, bordre=5)
+actionBox.Add(ipaRange, 0, wx.LEFT, 5)
+actionBox.Add(ipbRange, 0, wx.LEFT, 5)
+actionBox.Add(ipcRange, 0, wx.LEFT, 5)
 
-actionBox.Add(HostStartLabel, proportion=0, flag=wx.LEFT|wx.CENTER, border=5)
-actionBox.Add(hostStart, proportion=0, flag=wx.LEFT, border=5)
-actionBox.Add(HostEndLabel, proportion=0, flag=wx.LEFT|wx.CENTER, border=5)
-actionBox.Add(hostEnd, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(HostStartLabel, 0, wx.LEFT|wx.CENTER, 5)
+actionBox.Add(hostStart, 0, wx.LEFT, 5)
+actionBox.Add(HostEndLabel, 0, wx.LEFT|wx.CENTER, 5)
+actionBox.Add(hostEnd, 0, wx.LEFT, 5)
 
 vertBox = wx.BoxSizer(wx.VERTICAL)
-vertBox.Add(actionBox, proportion=0, flag=wx.EXPAND|wx.ALL, border=5)
-vertBox.Add(Results,proportion=1, flag=wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, border=5)
+vertBox.Add(actionBox, 0, wx.EXPAND|wx.ALL, 5)
+vertBox.Add(Results,1, wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, 5)
 
 mainWin.CreateStatusBar()
 
