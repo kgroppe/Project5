@@ -117,3 +117,7 @@ vertBox.Add(Results,1, wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, 5)
 mainWin.CreateStatusBar()
 
 panelAction.SetSizer(vertBox)
+
+
+mainWin.Show()
+app.MainLoop()
