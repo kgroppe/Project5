@@ -63,7 +63,14 @@ portStart.SetVaule(1)
 
 portEnd = wx.SpinCrtl(panelAction, -1, '')
 portEnd.SetRange(1, 1025)
-portEnd.SetVaule(1)
+portEnd.SetVaule(5)
+
+portStartLabel = wx.StaticText(panelAction, label="Port Start: ")
+portEndLabel = wx.StaticText(panelAction, label="Port End: ")
+
+actionBox = wx.BoxZSizer(wx.HORIZONTAL)
+
+actionBox.Add(displayAll, proportion=0, flag=wx.Left|wx.CENTER, border=5)
 
 
 
