@@ -12,7 +12,7 @@ def protScan(event):
         dlg.Destroy()
         return
 
-    mainWin.StatusBar.SetStatus9'Executing Port Scan ... Please Wait'_)
+    mainWin.StatusBar.SetStatus9'Executing Port Scan ... Please Wait')
 
     
 
