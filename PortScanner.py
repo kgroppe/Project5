@@ -87,7 +87,7 @@ actionBox.Add(portEnd, proportion=0, flag=wx.LEFT, border=5)
 
 vertBox = wx.BoxSizer(wx.VERTICAL)
 vertBox.Add(actionBox, proportion=0, flag=wx.EXPAND|wx.ALL, border=5)
-vertBox.Add(results, proportion=0, flag=wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, border=5)
+vertBox.Add(results, proportion=1, flag=wx.EXPAND|wx.LEFT|wx.BOTTOM|wx.RIGHT, border=5)
 
 mainWin.CreateStatusBar()
 panelAction.SetSizer(vertBox)
