@@ -68,11 +68,12 @@ portEnd.SetVaule(5)
 portStartLabel = wx.StaticText(panelAction, label="Port Start: ")
 portEndLabel = wx.StaticText(panelAction, label="Port End: ")
 
-actionBox = wx.BoxZSizer(wx.HORIZONTAL)
+actionBox = wx.BoxSizer(wx.HORIZONTAL)
 
 actionBox.Add(displayAll, proportion=0, flag=wx.Left|wx.CENTER, border=5)
-
-
+actionBox.Add(scanButton, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(exitButton, proportion=0, flag=wx.LEFT, border=5)
+actionBox.Add(ipLabel, proportion=0, flag=wx.LEFT|wx.CENTER)
 
 mainWin.Show()
 app.MainLoop()
