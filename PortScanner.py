@@ -37,6 +37,34 @@ scanButton = wx.Button(panelAction, label='Scan')
 exitButton = wx.Button(panelAction, label='Exit')
 exitButton.Bind(wx.EVT_BUTTON, programExit)
 
+results = wx.TextCrtl(panelAction, style=wx.TE_MULTILINE|wx.HSCROLL)
+
+ipaRange = wx.SpinCrtl(panelAction, -1, '')
+ipaRange.SetRange(0,255)
+ipaRange.setVaule(127)
+
+ipbRange = wx.SpinCrtl(panelAction, -1, '')
+ipbRange.SetRange(0,255)
+ipbRange.setVaule(0)
+
+ipcRange = wx.SpinCrtl(panelAction, -1, '')
+ipcRange.SetRange(0,255)
+ipcRange.setVaule(0)
+
+ipdRange = wx.SpinCrtl(panelAction, -1, '')
+ipdRange.SetRange(0,255)
+ipdRange.setVaule(1)
+
+ipLabel= wx.StaticText(panelAction, -1, '')
+
+portStart = wx.SpinCtrl(panelAction, -1,'')
+portStart.SetRange(1, 1025)
+portStart.SetVaule(1)
+
+portEnd = wx.SpinCrtl(panelAction, -1, '')
+portEnd.SetRange(1, 1025)
+portEnd.SetVaule(1)
+
 
 
 mainWin.Show()
