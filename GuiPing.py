@@ -1,13 +1,11 @@
-import email.headerregistry
 import wx
-import sys
 import ping3
 import socket
 
 from time import gmtime, strftime
 
 def pingScan(event):
-    if hostEnd.GetValue():
+    if hostEnd.GetValue() < hostStart.GetValue():
         dlg = wx.MessageDialog(mainWin, "Invalid Local Host Selection",
                                "Confirm:", wx.OK | wx.ICON_EXCLAMATION)
         result = dlg.ShowModal()
@@ -17,13 +15,13 @@ def pingScan(event):
     mainWin.StatusBar.SetStatusText("Executing Ping Sweep .... Please Wait")
 
     utcStart = gmtime()
-    utc = strftime("%a, %d %b %Y %X + 0000", utcStart)
+    utc = strftime("%a, %d %b %Y %X", utcStart)
     Results.AppendText("\n\nPing Sweep Started: "+utc+"\n\n")
-    baseIP = str(ipaRange.GetValue())+"."+str(ipbRange.GetVaule())+"."+str(ipcRange.GetVaule())+"."
+    baseIP = str(ipaRange.GetValue())+"."+str(ipbRange.GetValue())+"."+str(ipcRange.GetValue())+"."
 
     ipRange = []
 
-    for i in range(hostStart.GetVaule(), (hostEnd.GetValue()+1)):
+    for i in range(hostStart.GetValue(), (hostEnd.GetValue()+1)):
         ipRange.append(baseIP+str(i))
 
     for ipAddress in ipRange:
@@ -34,8 +32,8 @@ def pingScan(event):
             Results.AppendText(ipAddress+"\t")
 
             if delay != None:
-                Results.AppendText("Response Success")
-                Results.AppendText("Resonse Time:" +str(delay)+"Seconds")
+                Results.AppendText("Response Success ")
+                Results.AppendText("Resonse Time: %.10f Seconds" % delay)
                 Results.AppendText("\n")
             else:
                 Results.AppendText("Response Timeout")
@@ -43,11 +41,11 @@ def pingScan(event):
         except OSError as e:
             Results.AppendText(ipAddress)
             Results.AppendText("Response Failed: ")
-            Results.AppendText(e.message)
-            Results.AppendTest("\n")
+            Results.AppendText(e)
+            Results.AppendText("\n")
 
     utcEnd = gmtime()
-    utc = strftime("%a, %d %b %Y %X + 0000", utcEnd)
+    utc = strftime("%a, %d %b %Y %X", utcEnd)
     Results.AppendText("\n\nPing Sweep Ended: " + utc + "\n\n")
 
     mainWin.StatusBar.SetStatusText("")

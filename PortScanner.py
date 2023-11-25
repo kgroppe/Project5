@@ -1,24 +1,53 @@
+import socket
+
 import wx
 import sys
-#import ping3
+import ping3
+import os
 from socket import *
 
 from time import gmtime, strftime
 
-"""
-def protScan(event):
-    if portEnd.GetValue() < portStart.GetVaule():
+def portScan(event):
+    if portEnd.GetValue() < portStart.GetValue():
         dlg = wx.MessageDialog(mainWin,"Invalid Host Port Selection", "Confirm", wx.OK|wx.ICON_EXCLAMATION)
         result = dlg.ShowModal()
         dlg.Destroy()
         return
 
-    mainWin.StatusBar.SetStatus('Executing Port Scan ... Please Wait')
+    mainWin.StatusBar.SetStatusText('Executing Port Scan ... Please Wait')
 
     utcStart = gmtime()
-    utc = strftime("%a, %d %b %Y %X + 0000", utcStart)
+    utc = strftime("%a, %d %b %Y %X", utcStart)
     results.AppendText("\n\nPort Scan Started: "+utc+"\n\n")
-"""
+    baseIP = str(ipaRange.GetValue())+'.'+str(ipbRange.GetValue())+str(ipcRange.GetValue())+'.'+str(ipdRange.GetValue())
+
+    for port in range(portStart.GetValue(), portEnd.GetValue()+1):
+        #try:
+        mainWin.StatusBar.SetStatusText("Scanning:" + baseIP + "Port: " +str(port))
+        reqSocket = socket(AF_INET, SOCK_STREAM)
+        response = reqSocket.connect_ex((baseIP, port))
+
+        if response == 0:
+            results.AppendText(baseIP + "\t"+str(port)+'\t')
+            results.AppendText('Open')
+            results.AppendText('\n')
+        else:
+            if displayAll.GetValue() == True:
+                results.AppendText(baseIP+'\t'+str(port)+'\t')
+                results.AppendText('Closed')
+                results.AppendText('\n')
+        reqSocket.close()
+        #except OSError as e:
+       #     results.AppendText(baseIP+'\t'+str(port)+'\t')
+        #    results.AppendText('Failed: ')
+         #   results.AppendText(e)
+          #  results.AppendText('\n')
+        utcEnd = gmtime()
+        utc = strftime("%a, %d %b %Y %X", utcEnd)
+        results.AppendText('\nPort Scan Ended: '+utc+ '\n\n')
+        mainWin.StatusBar.SetStatusText('')
+
 
 def programExit(event):
     mainWin.Close()
@@ -32,7 +61,7 @@ displayAll = wx.CheckBox(panelAction, -1, 'Display All', (10,10))
 displayAll.SetValue(True)
 
 scanButton = wx.Button(panelAction, label='Scan')
-#scanButton.Bind(wx.EVT_BUTTON, portScan)
+scanButton.Bind(wx.EVT_BUTTON, portScan)
 
 exitButton = wx.Button(panelAction, label='Exit')
 exitButton.Bind(wx.EVT_BUTTON, programExit)
