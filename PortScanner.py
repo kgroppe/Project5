@@ -2,7 +2,7 @@ import socket
 
 import wx
 import sys
-import ping3
+#import ping3
 import os
 from socket import *
 
@@ -20,29 +20,28 @@ def portScan(event):
     utcStart = gmtime()
     utc = strftime("%a, %d %b %Y %X", utcStart)
     results.AppendText("\n\nPort Scan Started: "+utc+"\n\n")
-    baseIP = str(ipaRange.GetValue())+'.'+str(ipbRange.GetValue())+str(ipcRange.GetValue())+'.'+str(ipdRange.GetValue())
-
+    baseIP = str(ipaRange.GetValue())+'.'+str(ipbRange.GetValue())+'.'+str(ipcRange.GetValue())+'.'+str(ipdRange.GetValue())
     for port in range(portStart.GetValue(), portEnd.GetValue()+1):
-        #try:
-        mainWin.StatusBar.SetStatusText("Scanning:" + baseIP + "Port: " +str(port))
-        reqSocket = socket(AF_INET, SOCK_STREAM)
-        response = reqSocket.connect_ex((baseIP, port))
+        try:
+            mainWin.StatusBar.SetStatusText("Scanning:" + baseIP + "Port: " +str(port))
+            reqSocket = socket(AF_INET, SOCK_STREAM)
+            response = reqSocket.connect_ex((baseIP, port))
 
-        if response == 0:
-            results.AppendText(baseIP + "\t"+str(port)+'\t')
-            results.AppendText('Open')
-            results.AppendText('\n')
-        else:
-            if displayAll.GetValue() == True:
-                results.AppendText(baseIP+'\t'+str(port)+'\t')
-                results.AppendText('Closed')
+            if response == 0:
+                results.AppendText(baseIP + "\t"+str(port)+'\t')
+                results.AppendText('Open')
                 results.AppendText('\n')
-        reqSocket.close()
-        #except OSError as e:
-       #     results.AppendText(baseIP+'\t'+str(port)+'\t')
-        #    results.AppendText('Failed: ')
-         #   results.AppendText(e)
-          #  results.AppendText('\n')
+            else:
+                if displayAll.GetValue() == True:
+                    results.AppendText(baseIP+'\t'+str(port)+'\t')
+                    results.AppendText('Closed')
+                    results.AppendText('\n')
+            reqSocket.close()
+        except OSError as e:
+            results.AppendText(baseIP+'\t'+str(port)+'\t')
+            results.AppendText('Failed: ')
+            results.AppendText(e)
+            results.AppendText('\n')
         utcEnd = gmtime()
         utc = strftime("%a, %d %b %Y %X", utcEnd)
         results.AppendText('\nPort Scan Ended: '+utc+ '\n\n')
