@@ -1,6 +1,6 @@
 import wx
 import ping3
-import socket
+import random as rand
 
 from time import gmtime, strftime
 
@@ -25,19 +25,34 @@ def pingScan(event):
         ipRange.append(baseIP+str(i))
 
     for ipAddress in ipRange:
-
+        randTimeout = rand.randint(1, 5)
         try:
-            mainWin.StatusBar.SetStatusText("Pinging IP: "+ ipAddress)
-            delay = ping3.ping(ipAddress, timeout=2)
-            Results.AppendText(ipAddress+"\t")
+            if stealthCheck.GetValue() == True:
+                print("Using stealth, and rand timeout is", randTimeout)
+                mainWin.StatusBar.SetStatusText("Pinging IP: " + ipAddress)
+                delay = ping3.ping(ipAddress, timeout=randTimeout)
+                Results.AppendText(ipAddress + "\t")
 
-            if delay != None:
-                Results.AppendText("Response Success ")
-                Results.AppendText("Resonse Time: %.10f Seconds" % delay)
-                Results.AppendText("\n")
+                if delay != None:
+                    Results.AppendText("Response Success ")
+                    Results.AppendText("Resonse Time: %.10f Seconds" % delay)
+                    Results.AppendText("\n")
+                else:
+                    Results.AppendText("Response Timeout")
+                    Results.AppendText("\n")
+
             else:
-                Results.AppendText("Response Timeout")
-                Results.AppendText("\n")
+                mainWin.StatusBar.SetStatusText("Pinging IP: "+ ipAddress)
+                delay = ping3.ping(ipAddress, timeout=2)
+                Results.AppendText(ipAddress+"\t")
+
+                if delay != None:
+                    Results.AppendText("Response Success ")
+                    Results.AppendText("Resonse Time: %.10f Seconds" % delay)
+                    Results.AppendText("\n")
+                else:
+                    Results.AppendText("Response Timeout")
+                    Results.AppendText("\n")
         except OSError as e:
             Results.AppendText(ipAddress)
             Results.AppendText("Response Failed: ")
@@ -65,6 +80,8 @@ scanButton.Bind(wx.EVT_BUTTON, pingScan)
 
 exitButton = wx.Button(panelAction, label="Exit")
 exitButton.Bind(wx.EVT_BUTTON, programExit)
+
+stealthCheck = wx.CheckBox(panelAction, label="Stealth Mode")
 
 Results = wx.TextCtrl(panelAction, style=wx.TE_MULTILINE | wx.HSCROLL)
 
@@ -96,6 +113,8 @@ HostEndLabel = wx.StaticText(panelAction, label="Host End: ")
 actionBox = wx.BoxSizer()
 actionBox.Add(scanButton, 1,wx.LEFT, 5)
 actionBox.Add(exitButton, 0, wx.LEFT, 5)
+
+actionBox.Add(stealthCheck, 0, wx.LEFT, 5)
 
 actionBox.Add(ipLabel, 0, wx.LEFT, 5)
 
