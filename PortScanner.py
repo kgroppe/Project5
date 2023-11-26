@@ -1,9 +1,6 @@
 import socket
 
 import wx
-import sys
-#import ping3
-import os
 from socket import *
 
 from time import gmtime, strftime
