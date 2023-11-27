@@ -28,7 +28,6 @@ def pingScan(event):
         randTimeout = rand.randint(1, 5)
         try:
             if stealthCheck.GetValue() == True:
-                print("Using stealth, and rand timeout is", randTimeout)
                 mainWin.StatusBar.SetStatusText("Pinging IP: " + ipAddress)
                 delay = ping3.ping(ipAddress, timeout=randTimeout)
                 Results.AppendText(ipAddress + "\t")
