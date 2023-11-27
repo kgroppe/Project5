@@ -2,7 +2,7 @@ import wx
 import ping3
 import random as rand
 
-from time import gmtime, strftime
+from time import gmtime, strftime, sleep
 
 def pingScan(event):
     if hostEnd.GetValue() < hostStart.GetValue():
@@ -28,8 +28,9 @@ def pingScan(event):
         randTimeout = rand.randint(1, 5)
         try:
             if stealthCheck.GetValue() == True:
+                sleep(randTimeout)
                 mainWin.StatusBar.SetStatusText("Pinging IP: " + ipAddress)
-                delay = ping3.ping(ipAddress, timeout=randTimeout)
+                delay = ping3.ping(ipAddress, timeout=2)
                 Results.AppendText(ipAddress + "\t")
 
                 if delay != None:
